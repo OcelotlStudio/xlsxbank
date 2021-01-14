@@ -92,15 +92,15 @@ function processSheet(data: string | ArrayBuffer | Buffer): string | Array<Movem
                   headers.date.matched = true;
                   headers.date.column = column;
                   headers.matched = true;
-                } else if (descHeaderRegex.test(this.normalice(cell.v.toString()))) {
+                } else if (descHeaderRegex.test(normalice(cell.v.toString()))) {
                   // is description header
                   headers.desc.matched = true;
                   headers.desc.column = column;
-                } else if (debitHeaderRegex.test(this.normalice(cell.v.toString()))) {
+                } else if (debitHeaderRegex.test(normalice(cell.v.toString()))) {
                   // is debit header
                   headers.debit.matched = true;
                   headers.debit.column = column;
-                } else if (creditHeaderRegex.test(this.normalice(cell.v.toString()))) {
+                } else if (creditHeaderRegex.test(normalice(cell.v.toString()))) {
                   // is credit header
                   headers.credit.matched = true;
                   headers.credit.column = column;
@@ -123,7 +123,7 @@ function processSheet(data: string | ArrayBuffer | Buffer): string | Array<Movem
               break;
             }
           }
-          this.fillData(sheet, headers, movements, row);
+          fillData(sheet, headers, movements, row);
         }
       }
       if (!headers.matched) {
@@ -155,10 +155,10 @@ function processSheet(data: string | ArrayBuffer | Buffer): string | Array<Movem
         };
         const HSBCMovements: Array<Movements> = [];
         for (let row = range.s.r; row <= range.e.r; row += 1) {
-          this.fillData(sheet, headerHSBC, HSBCMovements, row);
+          fillData(sheet, headerHSBC, HSBCMovements, row);
         }
         if (HSBCMovements.length > 0) {
-          if (!this.analizeDate(HSBCMovements)) {
+          if (!analizeDate(HSBCMovements)) {
             return 'No se encontro formato para la fecha ingresada o no todos las fechas tienen mismo formato';
           }
           return HSBCMovements;
@@ -169,7 +169,7 @@ function processSheet(data: string | ArrayBuffer | Buffer): string | Array<Movem
         return error.msg;
       }
       if (movements.length > 0) {
-        if (!this.analizeDate(movements)) {
+        if (!analizeDate(movements)) {
           return 'No se encontro formato para la fecha ingresada o no todos las fechas tienen mismo formato';
         }
       }

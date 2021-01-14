@@ -1,6 +1,6 @@
 {
   "name": "@ocelotlstudio/xlsxbank",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A small library for parsing bank movements in spreadsheet or csv files",
   "scripts": {
     "test": "yarn jest --detectOpenHandles",
@@ -43,5 +43,6 @@
   "dependencies": {
     "date-fns": "^2.16.1",
     "xlsx": "^0.16.9"
-  }
+  },
+  "homepage": "https://github.com/OcelotlStudio/xlsxbank"
 }
