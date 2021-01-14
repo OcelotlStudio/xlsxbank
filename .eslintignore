@@ -1,0 +1,9 @@
+node_modules
+dist
+npm-debug.log
+coverage
+yarn-error.log
+tmp
+coverage
+jest.config.js
+src/_tests_/banksFiles
