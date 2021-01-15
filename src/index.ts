@@ -23,10 +23,13 @@ interface Movements {
   credit: string | number;
 }
 
-function processSheet(data: string | ArrayBuffer | Buffer): string | Array<Movements> {
+function processSheet(
+  data: string | ArrayBuffer | Buffer,
+  type?: 'base64' | 'binary' | 'buffer' | 'file' | 'array' | 'string'
+): string | Array<Movements> {
   // Read the Excel File data.
   const workbook = read(data, {
-    type: 'buffer', // NODE SCRIPT
+    type: type ? 'buffer' : type, // NODE SCRIPT
     raw: true,
     cellText: true,
   });
