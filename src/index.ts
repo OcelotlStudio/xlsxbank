@@ -29,7 +29,7 @@ function processSheet(
 ): string | Array<Movements> {
   // Read the Excel File data.
   const workbook = read(data, {
-    type: type ? 'buffer' : type, // NODE SCRIPT
+    type: type ? type : 'buffer', // NODE SCRIPT
     raw: true,
     cellText: true,
   });
