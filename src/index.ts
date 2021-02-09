@@ -133,7 +133,6 @@ function processSheet(
       if (!headers.matched) {
         //  custom templates
         // Template HSBC two columns
-        console.log(range);
         if (range.e.c === 3) {
           const headerHSBC: Header = {
             matched: true,
