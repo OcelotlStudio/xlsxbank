@@ -1,6 +1,6 @@
 import { read, utils, WorkSheet } from 'xlsx';
 import { parse } from 'date-fns';
-import { es } from 'date-fns/locale'
+import { es } from 'date-fns/locale';
 
 interface Entry {
   matched: boolean;
