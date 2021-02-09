@@ -1,5 +1,6 @@
 import { read, utils, WorkSheet } from 'xlsx';
 import { parse } from 'date-fns';
+import { es } from 'date-fns/locale'
 
 interface Entry {
   matched: boolean;
@@ -41,7 +42,7 @@ function processSheet(
   if (limiter && limiter !== 'A1:A1') {
     try {
       const range = utils.decode_range(limiter);
-      const dateHeaderRegex = /^FECHA$/i;
+      const dateHeaderRegex = /FECHA/i;
       const descHeaderRegex = /^(DESCRIPCI[oOóÓ]N)|CONCEPTO(S{0,1})$/i;
       const debitHeaderRegex = /^(RETIRO(S{0,1})|D[eEéÉ]BITO|CARGO(S{0,1}))$/i;
       const creditHeaderRegex = /^(ABONO(S{0,1})|CR[eEéÉ]DITO|DEPOSITO(S{0,1}))$/i;
@@ -131,40 +132,80 @@ function processSheet(
       }
       if (!headers.matched) {
         //  custom templates
-        // Template HSBC
-        const headerHSBC: Header = {
-          matched: true,
-          isValid: true,
-          date: {
+        // Template HSBC two columns
+        console.log(range);
+        if (range.e.c === 3) {
+          const headerHSBC: Header = {
             matched: true,
-            column: 0,
-          },
-          desc: {
-            matched: true,
-            column: 2,
-          },
-          debit: {
-            matched: false,
-            column: null,
-          },
-          credit: {
-            matched: false,
-            column: null,
-          },
-          import: {
-            matched: true,
-            column: 3,
-          },
-        };
-        const HSBCMovements: Array<Movements> = [];
-        for (let row = range.s.r; row <= range.e.r; row += 1) {
-          fillData(sheet, headerHSBC, HSBCMovements, row);
-        }
-        if (HSBCMovements.length > 0) {
-          if (!analizeDate(HSBCMovements)) {
-            return 'No se encontro formato para la fecha ingresada o no todos las fechas tienen mismo formato';
+            isValid: true,
+            date: {
+              matched: true,
+              column: 0,
+            },
+            desc: {
+              matched: true,
+              column: 2,
+            },
+            debit: {
+              matched: false,
+              column: null,
+            },
+            credit: {
+              matched: false,
+              column: null,
+            },
+            import: {
+              matched: true,
+              column: 3,
+            },
+          };
+          const HSBCMovements: Array<Movements> = [];
+          for (let row = range.s.r; row <= range.e.r; row += 1) {
+            fillData(sheet, headerHSBC, HSBCMovements, row);
           }
-          return HSBCMovements;
+          if (HSBCMovements.length > 0) {
+            if (!analizeDate(HSBCMovements)) {
+              return 'No se encontro formato para la fecha ingresada o no todos las fechas tienen mismo formato';
+            }
+            return HSBCMovements;
+          }
+        }
+        if (range.e.c === 2) {
+          //Template HSBC One column
+          const headerHSBCOneColumn: Header = {
+            matched: true,
+            isValid: true,
+            date: {
+              matched: true,
+              column: 0,
+            },
+            desc: {
+              matched: true,
+              column: 1,
+            },
+            debit: {
+              matched: false,
+              column: null,
+            },
+            credit: {
+              matched: false,
+              column: null,
+            },
+            import: {
+              matched: true,
+              column: 2,
+            },
+          };
+          const HSBCMovementsOneColumn: Array<Movements> = [];
+          for (let row = range.s.r; row <= range.e.r; row += 1) {
+            fillData(sheet, headerHSBCOneColumn, HSBCMovementsOneColumn, row);
+          }
+          if (HSBCMovementsOneColumn.length > 0) {
+            if (!analizeDate(HSBCMovementsOneColumn)) {
+              return 'No se encontro formato para la fecha ingresada o no todos las fechas tienen mismo formato';
+            }
+            return HSBCMovementsOneColumn;
+          }
         }
         return 'No se ha encontrado un template valido para este excel usa el multiple';
       }
@@ -330,7 +371,7 @@ function analizeDate(movements: Array<Movements>): boolean {
         } else if (countsFirst < countsLast) {
           dateIA.finalFormat = dateIA.formats[1];
         } else {
-          return false;
+          dateIA.finalFormat = dateIA.formats[0];
         }
       } else {
         // case month equals to day
@@ -353,7 +394,12 @@ function analizeDate(movements: Array<Movements>): boolean {
     try {
       movements.forEach((movement) => {
         if (typeof movement.date === 'string') {
-          const tempDate = parse(movement.date, dateIA.finalFormat, new Date());
+          let tempDate = parse(movement.date, dateIA.finalFormat, new Date());
+          if (isNaN(tempDate.getTime())) {
+            tempDate = parse(movement.date, dateIA.finalFormat, new Date(), {
+              locale: es,
+            });
+          }
           if (!isNaN(tempDate.getTime())) {
             movement.date = tempDate;
           } else {

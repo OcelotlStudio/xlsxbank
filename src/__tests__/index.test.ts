@@ -47,7 +47,7 @@ describe('parse excel by Header', () => {
 });
 
 describe('test files with errors', () => {
-  test(' templete no valid', () => {
+  test(' template no valid', () => {
     const fileContent = readFileSync(`${__dirname}/banksFiles/santander_personal_dic_no_headers.xlsx`);
     expect(processSheet(fileContent)).toEqual('No se ha encontrado un template valido para este excel usa el multiple');
   });
@@ -72,6 +72,10 @@ describe('test files with errors', () => {
   test('only headers', () => {
     const fileContent = readFileSync(`${__dirname}/banksFiles/onlyHeaders.csv`);
     expect(processSheet(fileContent).length).toEqual(0);
+  });
+  test('template multiple', () => {
+    const fileContent = readFileSync(`${__dirname}/banksFiles/template_multiple.xlsx`);
+    expect(processSheet(fileContent).length).toEqual(1);
   });
 });
 
@@ -103,5 +107,14 @@ describe('excelParserByTemplate', () => {
     expect(processSheet(fileContent)).toEqual(
       'No se encontro formato para la fecha ingresada o no todos las fechas tienen mismo formato'
     );
+  });
+
+  test('hsbc debito', () => {
+    const fileContent = readFileSync(`${__dirname}/banksFiles/hsbc_debito.csv`);
+    expect(processSheet(fileContent).length).toEqual(12);
+  });
+  test('hsbc ado one column', () => {
+    const fileContent = readFileSync(`${__dirname}/banksFiles/hsbc_ado.csv`);
+    expect(processSheet(fileContent).length).toEqual(28);
   });
 });
