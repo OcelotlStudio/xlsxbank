@@ -1,6 +1,6 @@
 {
   "name": "@ocelotlstudio/xlsxbank",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A small library for parsing bank movements in spreadsheet or csv files",
   "scripts": {
     "test": "yarn jest --detectOpenHandles",
@@ -12,18 +12,9 @@
   },
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
-  "files": [
-    "dist/",
-    "README.md",
-    "package.json"
-  ],
+  "files": ["dist/", "README.md", "package.json"],
   "license": "MIT",
-  "keywords": [
-    "Spreedsheet",
-    "csv",
-    "bank",
-    "parser"
-  ],
+  "keywords": ["Spreedsheet", "csv", "bank", "parser"],
   "author": "OcelotlStudio",
   "devDependencies": {
     "@types/jest": "^26.0.20",

@@ -5,6 +5,7 @@ import { es } from 'date-fns/locale';
 interface Entry {
   matched: boolean;
   column: number | null;
+  inverted?: boolean;
 }
 
 interface Header {
@@ -193,6 +194,7 @@ function processSheet(
             import: {
               matched: true,
               column: 2,
+              inverted: true,
             },
           };
           const HSBCMovementsOneColumn: Array<Movements> = [];
@@ -250,7 +252,8 @@ function fillData(sheet: WorkSheet, headers: Header, movements: Array<Movements>
           return;
         }
         const rawNumber = value ? parseFloat(value) : 0;
-        if (rawNumber < 0) {
+        const validation = headers.import.inverted ? rawNumber > 0 : rawNumber < 0;
+        if (validation) {
           debitInput = Math.abs(rawNumber);
           creditInput = 0;
         } else {
