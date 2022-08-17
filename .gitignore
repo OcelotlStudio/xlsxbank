@@ -1,7 +1,10 @@
-node_modules
-dist
-npm-debug.log
-coverage
-yarn-error.log
-tmp
-coverage
+node_modules/
+coverage/
+dist/
+/.buildcache
+/.vscode/settings.json
+/scratch
+/reports
+scratch
+*.tsbuildinfo
+.pnpm-debug.log
