@@ -15,6 +15,7 @@ npm install --save @ocelotlstudio\xlsxbank
 Then you're ready to process first spreadsheet:
 
 Simple Usage
+
 ```javascript
 import { processSheet } from '@ocelotlstudio\xlsxbank';
 
@@ -40,6 +41,7 @@ if (typeof result === 'string'){
 ```
 
 With type option for xlsx read file
+
 ```javascript
 import { processSheet } from '@ocelotlstudio\xlsxbank';
 
@@ -64,6 +66,7 @@ if (typeof result === 'string'){
    */
 }
 ```
+
 ## Features
 
 * Support spreadsheet or csv files.

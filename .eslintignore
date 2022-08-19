@@ -1,9 +1,6 @@
 node_modules
 dist
-npm-debug.log
+docs
 coverage
-yarn-error.log
-tmp
-coverage
-jest.config.js
-src/_tests_/banksFiles
+web_modules
+tsconfig.json
