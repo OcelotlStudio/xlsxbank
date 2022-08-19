@@ -83,7 +83,7 @@
         "xlsx": "^0.18.5"
     },
     "engines": {
-        "node": ">= 12.0.0"
+        "node": ">= 14.6"
     },
     "browserslist": [
         "defaults",
