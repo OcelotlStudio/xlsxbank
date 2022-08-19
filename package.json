@@ -14,7 +14,6 @@
     "type": "module",
     "main": "./dist/prod/xlsxbank.cjs",
     "module": "./dist/prod/xlsxbank.modern.js",
-    "unpkg": "./dist/prod/xlsxbank.umd.js",
     "exports": {
         "require": "./dist/prod/xlsxbank.cjs",
         "development": "./dist/dev/xlsxbank.modern.js",
@@ -32,7 +31,7 @@
         "test:watch": "jest --watch",
         "test:ci": "jest --runInBand --ci",
         "test:ci:coverage": "jest --runInBand --ci --coverage --coverageDirectory=coverage",
-        "build:prod": "cross-env NODE_ENV=production microbundle --tsconfig ./tsconfig.json --format modern,cjs,umd --output dist/prod/xlsxbank.js",
+        "build:prod": "cross-env NODE_ENV=production microbundle --tsconfig ./tsconfig.json --format modern,cjs --output dist/prod/xlsxbank.js",
         "build:dev": "cross-env NODE_ENV=development microbundle --define process.env.NODE_ENV=development --tsconfig ./tsconfig.json --generateTypes false --format modern --output dist/dev/xlsxbank.js",
         "build": "rm -rf ./dist && pnpm build:dev && pnpm build:prod",
         "gen:docs": "rm -rf ./docs && typedoc --options typedoc.cjs",
@@ -54,7 +53,7 @@
         "@commitlint/cli": "^17.0.3",
         "@commitlint/config-conventional": "^17.0.3",
         "@types/jest": "^28.1.7",
-        "@types/node": "^18.7.6",
+        "@types/node": "~18.6.5",
         "@typescript-eslint/eslint-plugin": "^5.33.1",
         "@typescript-eslint/parser": "^5.33.1",
         "babel-plugin-dev-expression": "^0.2.3",
@@ -62,7 +61,7 @@
         "cross-env": "^7.0.3",
         "eslint": "^8.22.0",
         "eslint-config-prettier": "^8.5.0",
-        "eslint-plugin-jest": "^26.8.3",
+        "eslint-plugin-jest": "^26.8.4",
         "eslint-plugin-prettier": "^4.2.1",
         "eslint-plugin-promise": "^6.0.0",
         "eslint-plugin-tsdoc": "^0.2.16",
@@ -80,7 +79,7 @@
         "zx": "^7.0.8"
     },
     "dependencies": {
-        "date-fns": "^2.29.1",
+        "date-fns": "^2.29.2",
         "xlsx": "^0.18.5"
     },
     "engines": {
