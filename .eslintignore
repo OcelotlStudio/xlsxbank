@@ -3,3 +3,4 @@ dist
 docs
 coverage
 web_modules
+tsconfig.json
