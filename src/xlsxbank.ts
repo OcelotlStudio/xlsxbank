@@ -1,6 +1,6 @@
-import { read, utils, WorkSheet } from 'xlsx';
 import { parse } from 'date-fns';
 import { es } from 'date-fns/locale';
+import { read, utils, WorkSheet } from 'xlsx';
 
 export interface Entry {
     matched: boolean;
@@ -113,6 +113,7 @@ function processSheet(
                                     // is import header
                                     headers.import.matched = true;
                                     headers.import.column = column;
+                                    headers.import.inverted = true;
                                 }
                             }
                         }

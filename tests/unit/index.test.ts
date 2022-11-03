@@ -6,17 +6,19 @@ import { TestCase } from '../test-case';
 describe('xslxbank', () => {
     test('parse santander credit card', () => {
         const fileContent = TestCase.fileContents('santander_TC_dic.xlsx');
-        expect(processSheet(fileContent)).toEqual([
-            { credit: 0, debit: 51.47, description: 'Concepto 1', date: parse('16-Dec-20', 'dd-MMM-yy', new Date()) },
-            { credit: 555.47, debit: 0, description: 'Concepto 2', date: parse('15-Dec-20', 'dd-MMM-yy', new Date()) },
-            { credit: 589.6, debit: 0, description: 'Concepto 3', date: parse('14-Dec-20', 'dd-MMM-yy', new Date()) },
-            { credit: 0, debit: 589.6, description: 'Concepto 4', date: parse('14-Dec-20', 'dd-MMM-yy', new Date()) }
+        const data = processSheet(fileContent);
+        expect(data).toEqual([
+            { credit: 51.47, debit: 0, description: 'Concepto 1', date: parse('16-Dec-20', 'dd-MMM-yy', new Date()) },
+            { credit: 0, debit: 555.47, description: 'Concepto 2', date: parse('15-Dec-20', 'dd-MMM-yy', new Date()) },
+            { credit: 0, debit: 589.6, description: 'Concepto 3', date: parse('14-Dec-20', 'dd-MMM-yy', new Date()) },
+            { credit: 589.6, debit: 0, description: 'Concepto 4', date: parse('14-Dec-20', 'dd-MMM-yy', new Date()) }
         ]);
     });
 
     test('parse santander debit card', () => {
         const fileContent = TestCase.fileContents('santander_personal_dic.xlsx');
-        expect(processSheet(fileContent).length).toEqual(25);
+        const data = processSheet(fileContent);
+        expect(data.length).toEqual(25);
     });
 
     test('parse santander old format', () => {
@@ -31,7 +33,8 @@ describe('xslxbank', () => {
 
     test('parse banamex debit', () => {
         const fileContent = TestCase.fileContents('BNMX_DIC-TDCR.CSV');
-        expect(processSheet(fileContent).length).toEqual(13);
+        const data = processSheet(fileContent);
+        expect(data.length).toEqual(13);
     });
 
     test('parse banamex debit tdcr', () => {
@@ -89,7 +92,8 @@ describe('xslxbank', () => {
     });
     test('parse hsbc ado one column', () => {
         const fileContent = TestCase.fileContents('hsbc_ado.csv');
-        expect(processSheet(fileContent).length).toEqual(28);
+        const data = processSheet(fileContent);
+        expect(data.length).toEqual(28);
     });
 
     test('error with template no valid', () => {
