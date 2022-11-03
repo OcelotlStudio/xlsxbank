@@ -10,6 +10,12 @@ A small library for parsing bank movements in spreadsheet or csv files to an arr
 npm install --save @ocelotlstudio\xlsxbank
 ```
 
+or 
+
+```bash
+pnpm add @ocelotlstudio\xlsxbank
+```
+
 ## Usage
 
 Then you're ready to process first spreadsheet:
