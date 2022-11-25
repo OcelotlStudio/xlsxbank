@@ -260,7 +260,7 @@ function fillData(sheet: WorkSheet, headers: Header, movements: Array<Movements>
             if (headers.import.matched && headers.import.column !== null) {
                 const cellImport = sheet[utils.encode_cell({ c: headers.import.column, r: row })];
                 let value = cellImport.v || cellImport.w;
-                value = value.toString().replace(/,/g, '');
+                value = value.toString().replace(/,/g, '').replace(/\$/g, '');
                 if (Number.isNaN(Number(value))) {
                     return;
                 }
@@ -283,9 +283,9 @@ function fillData(sheet: WorkSheet, headers: Header, movements: Array<Movements>
                         ? sheet[utils.encode_cell({ c: headers.credit.column, r: row })]
                         : null;
                 let debitTempValue = cellDebit ? cellDebit.v || cellDebit.w : 0;
-                debitTempValue = debitTempValue.toString().replace(/,/g, '');
+                debitTempValue = debitTempValue.toString().replace(/,/g, '').replace(/\$/g, '');
                 let creditTempValue = cellCredit ? cellCredit.v || cellCredit.w : 0;
-                creditTempValue = creditTempValue.toString().replace(/,/g, '');
+                creditTempValue = creditTempValue.toString().replace(/,/g, '').replace(/\$/g, '');
                 debitInput = Math.abs(debitTempValue ? parseFloat(debitTempValue) : 0);
                 creditInput = Math.abs(creditTempValue ? parseFloat(creditTempValue) : 0);
             }

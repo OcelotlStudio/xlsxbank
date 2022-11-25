@@ -1,5 +1,11 @@
 # @ocelotlstudio/xlsxbank ChangeLog
 
+## 1.1.2
+
+### Patch Changes 24/11/2022
+
+- fix: problem with values not decimal on import credit or debit
+
 ## 1.1.1
 
 ### Patch Changes
